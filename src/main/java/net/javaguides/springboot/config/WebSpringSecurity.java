@@ -49,6 +49,7 @@ public class WebSpringSecurity {
                                 // The pattern "/{postId:[\\d]+}" ensures that only numeric values (like /1, /2, etc.) match and are permitted without authentication.
                                 .requestMatchers(new AntPathRequestMatcher("/{postId:[\\d]+}")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/page/search", "GET")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/posts/category/**")).permitAll()
                                 .anyRequest().authenticated()
                 ).formLogin(form -> form
                         .loginPage("/login")

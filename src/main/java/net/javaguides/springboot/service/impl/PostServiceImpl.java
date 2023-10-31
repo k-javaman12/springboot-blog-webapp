@@ -1,6 +1,7 @@
 package net.javaguides.springboot.service.impl;
 
 import net.javaguides.springboot.dto.PostDto;
+import net.javaguides.springboot.entity.Category;
 import net.javaguides.springboot.entity.Post;
 import net.javaguides.springboot.entity.User;
 import net.javaguides.springboot.mapper.PostMapper;
@@ -12,6 +13,7 @@ import net.javaguides.springboot.util.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -96,6 +98,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findPostsByCategoryName(String categoryName) {
-        return categoryRepository.findByCategory_Name(categoryName);
+        Category category = categoryRepository.findByName(categoryName).orElse(null);
+        if (category != null) {
+            return category.getPosts();
+        }
+        return new ArrayList<>();
     }
 }
