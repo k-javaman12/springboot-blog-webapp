@@ -4,6 +4,7 @@ import net.javaguides.springboot.dto.PostDto;
 import net.javaguides.springboot.entity.Post;
 import net.javaguides.springboot.entity.User;
 import net.javaguides.springboot.mapper.PostMapper;
+import net.javaguides.springboot.repository.CategoryRepository;
 import net.javaguides.springboot.repository.PostRepository;
 import net.javaguides.springboot.repository.UserRepository;
 import net.javaguides.springboot.service.PostService;
@@ -20,10 +21,12 @@ public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
     private UserRepository userRepository;
+    private CategoryRepository categoryRepository;
 
-    public PostServiceImpl(PostRepository postRepository, UserRepository userRepository) {
+    public PostServiceImpl(PostRepository postRepository, UserRepository userRepository, CategoryRepository categoryRepository) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     @Override
@@ -89,5 +92,10 @@ public class PostServiceImpl implements PostService {
         return posts.stream()
                 .map(PostMapper::mapToPostDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Post> findPostsByCategoryName(String categoryName) {
+        return categoryRepository.findByCategory_Name(categoryName);
     }
 }

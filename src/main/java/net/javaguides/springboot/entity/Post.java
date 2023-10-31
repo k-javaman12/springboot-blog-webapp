@@ -41,6 +41,11 @@ public class Post {
     @JoinColumn(name = "created_by", nullable = false)
     private User createdBy;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private Set<Comment> comments = new HashSet<>();
 }

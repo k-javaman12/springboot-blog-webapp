@@ -1,6 +1,7 @@
 package net.javaguides.springboot.service;
 
 import net.javaguides.springboot.dto.PostDto;
+import net.javaguides.springboot.entity.Post;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface PostService {
     PostDto findPostByUrl(String postUrl);
 
     List<PostDto> searchPosts(String query);
+
+    List<Post> findPostsByCategoryName(String categoryName);
 }

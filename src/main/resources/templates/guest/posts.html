@@ -2,10 +2,10 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
 >
-<div th:replace="admin/header :: header"></div>
+<div th:replace="guest/header :: header"></div>
 <body>
 
-<div th:replace="admin/header :: navbar"></div>
+<div th:replace="guest/header :: navbar"></div>
 
 <div class="container">
   <div class="row">
@@ -13,7 +13,7 @@
   </div>
   <div class="col-md-5">
     <div class="form-group">
-      <form class="form-inline" th:action="@{/admin/posts/search}">
+      <form class="form-inline" th:action="@{/guest/posts/search}">
         <div class="input-group">
           <label>
             <input type="text" class="form-control" name="query" />
@@ -38,20 +38,20 @@
     <tr th:each = "post, postStat : ${posts}">
       <td th:text="${postStat.count}">1</td>
       <td>
-        <a th:href="@{/admin/{postId}(postId=${post.id})}" th:text="${post.title}">post title</a>
+        <a th:href="@{/guest/{postId}(postId=${post.id})}" th:text="${post.title}">post title</a>
       </td>
       <td th:text="${post.shortDescription}">post short description</td>
       <td th:text="${#temporals.format(post.createdOn,'dd MMM yyyy')}">10 JUL 2022</td>
       <td>
-        <a th:href="@{/admin/posts/{postId}/edit(postId=${post.id})}" class="btn btn-primary"> Edit</a>
-        <a th:href="@{/admin/posts/{postId}/delete(postId=${post.id})}" class="btn btn-danger"> Delete</a>
-        <a th:href="@{/admin/posts/{postUrl}/view(postUrl=${post.url})}" class="btn btn-info"> View</a>
+        <a th:href="@{/guest/posts/{postId}/edit(postId=${post.id})}" class="btn btn-primary"> Edit</a>
+        <a th:href="@{/guest/posts/{postId}/delete(postId=${post.id})}" class="btn btn-danger"> Delete</a>
+        <a th:href="@{/guest/posts/{postUrl}/view(postUrl=${post.url})}" class="btn btn-info"> View</a>
       </td>
     </tr>
     </tbody>
   </table>
 </div>
 <br /><br />
-<div th:replace="admin/footer :: footer"></div>
+<div th:replace="guest/footer :: footer"></div>
 </body>
 </html>

@@ -2,9 +2,9 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
 >
-<div th:replace="admin/header :: header"></div>
+<div th:replace="guest/header :: header"></div>
 <body>
-<div th:replace="admin/header :: navbar"></div>
+<div th:replace="guest/header :: navbar"></div>
 <div class="container">
     <div class="row">
         <h1>List of Comments</h1>
@@ -27,7 +27,7 @@
                 <td th:text="${comment.content}"></td>
                 <td th:text="${#temporals.format(comment.createdOn, 'dd MMM yyyy')}"></td>
                 <td>
-                    <a class="btn btn-danger" th:href="@{/admin/posts/comments/{commentId}(commentId=${comment.id})}">Delete</a>
+                    <a class="btn btn-danger" th:href="@{/guest/posts/comments/{commentId}(commentId=${comment.id})}">Delete</a>
                 </td>
             </tr>
         </tbody>

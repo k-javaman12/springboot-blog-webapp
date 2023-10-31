@@ -3,9 +3,9 @@ package net.javaguides.springboot.controller;
 import jakarta.validation.Valid;
 import net.javaguides.springboot.dto.CommentDto;
 import net.javaguides.springboot.dto.PostDto;
+import net.javaguides.springboot.entity.Post;
 import net.javaguides.springboot.service.CommentService;
 import net.javaguides.springboot.service.PostService;
-import net.javaguides.springboot.util.ROLE;
 import net.javaguides.springboot.util.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-public class PostController {
+public class GuestController {
 
     private PostService postService;
     private CommentService commentService;
 
-    public PostController(PostService postService, CommentService commentService) {
+    public GuestController(PostService postService, CommentService commentService) {
         this.postService = postService;
         this.commentService = commentService;
     }
@@ -138,6 +138,13 @@ public class PostController {
         return "guest/posts";
     }
 
+    @GetMapping("/posts/category/{categoryName}")
+    public String getPostsByCategory(@PathVariable String categoryName, Model model) {
+        List<Post> posts = postService.findPostsByCategoryName(categoryName);
+        model.addAttribute("posts", posts);
+        return "posts";
+    }
+
     private static String getUrl(String postTitle){
         // OOPS Concepts Explained in Java
         // oops-concepts-explained-in-java
@@ -146,5 +153,4 @@ public class PostController {
         url = url.replaceAll("[^A-Za-z0-9]", "-");
         return url;
     }
-
 }
