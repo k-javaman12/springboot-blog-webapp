@@ -3,9 +3,9 @@
       xmlns:th="http://www.thymeleaf.org"
 >
 
-<div th:replace="admin/header :: header"></div>
+<div th:replace="guest/header :: header"></div>
 <body>
-<div th:replace="admin/header :: navbar"></div>
+<div th:replace="guest/header :: navbar"></div>
 <br /><br />
 <div class="container">
   <div class="row col-md-8 offset-md-2">
@@ -14,7 +14,7 @@
         <h2 class="text-center"> Create Post</h2>
       </div>
       <div class="card-body">
-        <form role="form" method="post" th:action="@{/admin/posts}" th:object="${post}">
+        <form role="form" method="post" th:action="@{/guest/posts}" th:object="${post}">
           <div class="mb-3">
             <label class="form-label"> Title </label>
             <input
@@ -68,7 +68,7 @@
 
 </div>
 <br /><br /><br /><br /><br />
-<div th:replace="admin/footer :: footer"></div>
+<div th:replace="guest/footer :: footer"></div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous"></script>

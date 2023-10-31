@@ -29,12 +29,7 @@ public class PostController {
     @GetMapping("/guest/posts")
     public String guestPosts(Model model){
         String role = SecurityUtils.getRole();
-        List<PostDto> posts = null;
-        if (ROLE.ROLE_GUEST.name().equals(role)) {
-            posts = postService.findPostsByUser();
-        } else {
-            adminPosts(model);
-        }
+        List<PostDto> posts = postService.findPostsByUser();
         model.addAttribute("posts", posts);
         return "/guest/posts";
     }
@@ -46,12 +41,7 @@ public class PostController {
     @GetMapping("/guest/posts/comments")
     public String postComments(Model model) {
         String role = SecurityUtils.getRole();
-        List<CommentDto> comments = null;
-        if (ROLE.ROLE_GUEST.name().equals(role)) {
-            comments = commentService.findCommentsByPost();
-        } else {
-            adminComments(model);
-        }
+        List<CommentDto> comments = commentService.findCommentsByPost();
         model.addAttribute("comments", comments);
         return "guest/comments";
     }
@@ -156,81 +146,5 @@ public class PostController {
         url = url.replaceAll("[^A-Za-z0-9]", "-");
         return url;
     }
-    // create handler method, GET request and return model and view
-    @GetMapping("/admin/posts")
-    public String adminPosts(Model model){
-        String role = SecurityUtils.getRole();
-        List<PostDto> posts = null;
-        posts = postService.findAllPosts();
-        model.addAttribute("posts", posts);
-        return "/admin/posts";
-    }
 
-    // create handler method, GET request and return model and view
-    @GetMapping("/admin/posts/comments")
-    public String adminComments(Model model){
-        String role = SecurityUtils.getRole();
-        List<CommentDto> comments = null;
-        comments = commentService.findAllComments();
-        model.addAttribute("comments", comments);
-        return "/admin/comments";
-    }
-
-    // handler method to handle edit post request
-    @GetMapping("/admin/posts/{postId}/edit")
-    public String AdminEditPostForm(@PathVariable("postId") Long postId,
-                               Model model){
-
-        PostDto postDto = postService.findPostById(postId);
-        model.addAttribute("post", postDto);
-        return "admin/edit_post";
-    }
-
-    // handler method to handle edit post form submit request
-    @PostMapping("/admin/posts/{postId}")
-    public String AdminUpdatePost(@PathVariable("postId") Long postId,
-                             @Valid @ModelAttribute("post") PostDto postDto,
-                             BindingResult result,
-                             Model model){
-        if(result.hasErrors()) {
-            model.addAttribute("post", postDto);
-            return "admin/edit_post";
-        }
-
-        postDto.setId(postId);
-        postService.updatePost(postDto);
-        return "redirect:/admin/posts";
-    }
-
-    // handler method to handle delete
-    @GetMapping("/admin/posts/{postId}/delete")
-    public String adminDeletePost(@PathVariable("postId") Long postId){
-        postService.deletePost(postId);
-        return "redirect:/admin/posts";
-    }
-
-    // handler method to handle view post request
-    @GetMapping("/admin/{postId}")
-    public String adminViewPost(@PathVariable("postId") Long postId, Model model) {
-        PostDto postDto = postService.findPostById(postId);
-        model.addAttribute("post", postDto);
-        return "admin/view_post";
-    }
-
-    // handler method to handle view post request
-    @GetMapping("/admin/posts/{postUrl}/view")
-    public String adminViewPostByUrl(@PathVariable("postUrl") String postUrl,
-                                Model model){
-        PostDto postDto = postService.findPostByUrl(postUrl);
-        model.addAttribute("post", postDto);
-        return "admin/view_post";
-    }
-
-    // handler method to handle new post request
-    @GetMapping("admin/posts/newpost")
-    public String adminNewPostForm(Model model){
-        PostDto postDto = new PostDto();
-        model.addAttribute("post", postDto);
-        return "admin/create_post";
-    }
 }
