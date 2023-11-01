@@ -138,13 +138,6 @@ public class GuestController {
         return "guest/posts";
     }
 
-    @GetMapping("/posts/category/{categoryName}")
-    public String getPostsByCategory(@PathVariable String categoryName, Model model) {
-        List<Post> posts = postService.findPostsByCategoryName(categoryName);
-        model.addAttribute("posts", posts);
-        return "posts";
-    }
-
     private static String getUrl(String postTitle){
         // OOPS Concepts Explained in Java
         // oops-concepts-explained-in-java

@@ -22,5 +22,4 @@ public interface PostService {
 
     List<PostDto> searchPosts(String query);
 
-    List<Post> findPostsByCategoryName(String categoryName);
 }
