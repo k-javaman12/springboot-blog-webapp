@@ -17,8 +17,6 @@
 - **빌드 도구**:
     - Gradle
 
-## 🗺️ 데이터베이스 다이어그램
-![Description](schema.png)
 
 ## 📚 프로젝트에서의 주요 학습 포인트
 1. **Spring Boot와 JPA 사용**: CRUD 앱의 개발에 Spring Boot와 JPA 활용.
